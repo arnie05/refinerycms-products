@@ -15,7 +15,8 @@ module Refinery
       end
 
       def find_all_products
-        @products = Refinery::Products::Product.live.includes(:categories).with_translations(::I18n.locale).newest_first.page(params[:page])
+        #@products = Refinery::Products::Product.live.includes(:categories).with_translations(::I18n.locale).newest_first.page(params[:page])
+        @products = Refinery::Products::Product.live.includes(:categories).with_translations(::I18n.locale).order("position ASC")
       end
 
       def find_all_root_categories

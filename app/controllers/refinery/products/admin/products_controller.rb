@@ -4,8 +4,15 @@ module Refinery
       class ProductsController < ::Refinery::AdminController
 
         crudify :'refinery/products/product',
-                include: [:translations, :categories, :properties],
-                order: :published_at
+                :order => "position ASC", 
+                include: [:translations],                
+                :xhr_paging => false,
+                :sortable => true,                          
+                :paging => false
+                #:per_page => 50,
+                #:searchable => true,       
+        
+
 
         helper :'refinery/products/admin/categories'
 
@@ -34,6 +41,14 @@ module Refinery
           end
 
         protected
+
+          
+          def after_update_positions
+            find_all_products
+            render :partial => '/refinery/products/admin/products/sortable_list' and return
+          end                
+                
+
           def find_product
             @product = Refinery::Products::Product.find_by_slug_or_id(params[:id])
           end

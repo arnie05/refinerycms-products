@@ -38,6 +38,11 @@ Refinery::Core::Engine.routes.draw do
         resources :properties, except: :show do
           post :update_positions, on: :collection
         end
+
+        resources :products, except: :show do
+          post :update_positions, on: :collection
+        end
+
       end
     end
   end
