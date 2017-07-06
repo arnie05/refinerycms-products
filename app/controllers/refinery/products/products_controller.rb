@@ -20,15 +20,15 @@ module Refinery
       end
 
       def find_product
-        @product = Refinery::Products::Product.includes(:translations).friendly.find(params[:id])
+        @product = Refinery::Products::Product.friendly.find(params[:id])
         
-        if !@product.try(:live?)
-          if current_refinery_user && current_refinery_user.has_plugin?("refinery_products")
-            @product
-          else
-            error_404
-          end
-        end
+        # if !@product.try(:live?)
+        #   if current_refinery_user && current_refinery_user.has_plugin?("refinery_products")
+        #     @product
+        #   else
+        #     error_404
+        #   end
+        # end
       end
 
     end
